@@ -3,7 +3,8 @@ import { nanoid } from "@reduxjs/toolkit"
 export const addTodo = (state , action) =>{
     const todo = {
         id: nanoid(),
-        text: action.payload
+        text: action.payload,
+        enableEdit: false
     }
     state.todos.push(todo);
 }
@@ -25,3 +26,12 @@ export const updateTodo = (state, action) => {
         }
     } ) 
 } 
+export const changeEditStatus = (state, action) =>{
+    const {id, status} = action.payload
+    state.todos = state.todos.map( (todo) => {
+        if(todo.id == id)
+        {
+            return {...todo, enableEdit:status}
+        }
+    })
+}
